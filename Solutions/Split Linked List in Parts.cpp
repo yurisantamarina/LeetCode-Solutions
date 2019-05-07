@@ -8,45 +8,44 @@
  */
 class Solution {
 public:
-    int getLen(ListNode* root){
-        int len = 0;
-        while(root != NULL){
+    int getSizeList(ListNode* root) {
+        int sz_list = 0;
+        while (root) {
+            sz_list++;
             root = root->next;
-            len++;
         }
-        return len;
+        return sz_list;
     }
     
-    ListNode* move(int times, int sz, ListNode* at, vector<ListNode*>& ans){
-        while(times > 0){
-            ListNode* newRoot = at;
-            ans.push_back(newRoot);
-            
-            for(int i = 0; i < sz - 1; i++){
-                newRoot = newRoot->next;
+    ListNode* process(ListNode* root, int sz, int qtd, vector<ListNode*>& answer) {
+        for (int i = 0; i < qtd; i++) {
+            answer.push_back(root);
+            for (int j = 0; j < sz - 1; j++) {
+                root = root->next;
             }
-            at = newRoot ? newRoot->next : NULL;
-            if(newRoot)
-                newRoot->next = NULL;
-            times--;
+            if (sz) {
+                ListNode* tmp = root->next;
+                root->next = NULL;
+                root = tmp;
+            }
         }
-        return at;
+        return root;
     }
     
     vector<ListNode*> splitListToParts(ListNode* root, int k) {
-        int n = getLen(root);
-        //printf("n = %d\n", n);
-        int sizeMore = n / k + (n % k > 0);
-        int more = n % k;
-        int sizeLess = n / k;
-        int less = k - more;
+        int sz_list = getSizeList(root);
+        int size_a, qtd_a, size_b, qtd_b;
+        size_a = size_b = sz_list / k;
+        if (sz_list % k != 0) {
+            size_a++;
+        }
         
-        //printf("sizeMore = %d more = %d    sizeLess = %d less = %d\n", sizeMore, more, sizeLess, less);
-        ListNode* at = root;
-        vector<ListNode*> ans;
+        qtd_a = sz_list % k;
+        qtd_b = k - qtd_a;
         
-        at = move(more, sizeMore, at, ans);
-        at = move(less, sizeLess, at, ans);
-        return ans;
+        vector<ListNode*> answer;
+        root = process(root, size_a, qtd_a, answer);
+        root = process(root, size_b, qtd_b, answer);
+        return answer;
     }
 };
