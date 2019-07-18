@@ -24,7 +24,6 @@ public:
         if (sum & 1) {
             return false;
         }
-        
         vector<vector<char> > dp(int{nums.size()}, vector<char>(sum / 2 + 1, 2));
         return Partition(0, sum / 2, nums, dp) == 1;
     }
