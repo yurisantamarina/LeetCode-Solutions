@@ -1,4 +1,4 @@
-class Solution {
+class Solution { 
 public:
     char Partition(int idx, int left, const vector<int>& nums, vector<vector<char> >& dp) {
         if (idx == int{nums.size()}) {
