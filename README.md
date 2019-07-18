@@ -1,1 +1,1 @@
-# MASTER - My LeetCode solutions: [My profile](https://leetcode.com/yurisantamarina/)
+# nb - My LeetCode solutions: [My profile](https://leetcode.com/yurisantamarina/)
